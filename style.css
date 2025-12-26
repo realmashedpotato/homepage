@@ -1,0 +1,463 @@
+/* =========================================================
+   Clean, modern personal site stylesheet
+   - Soft colors
+   - Nice system + optional web fonts
+   - Simple, responsive layout
+   ========================================================= */
+
+/* Optional: if you want Google Fonts, add this to your HTML <head>:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+*/
+
+/* === Simplified core styles === */
+:root{
+  --bg:#eef7ff;
+  --text:#0b2545;
+  --muted:#6b7280;
+  --accent:#7fb7ff;
+  --card:#87CEEB;
+  --card-text:#fff;
+  --card-border: rgba(255,255,255,0.15);
+  --radius:0.9rem;
+  --radius-lg:1.5rem;
+  --container-max:900px;
+  --gap:1.5rem;
+  --hero-height:clamp(320px,45vh,640px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html:focus-within{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+a{color:var(--accent);text-decoration:none}
+
+/* Reusable card component for header, projects, footer */
+.card{
+  background:var(--card);
+  border-radius:var(--radius-lg);
+  padding:1.5rem;
+  box-shadow:0 8px 30px rgba(11,37,69,0.04);
+  border:1px solid rgba(255,255,255,0.15);
+  color:var(--card-text);
+}
+
+/* hero */
+.hero-wrap{position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;width:100vw;overflow:hidden}
+.hero-img{width:100%;height:var(--hero-height);object-fit:cover;object-position:top center;display:block}
+.hero__overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--text);pointer-events:none}
+.hero__overlay h1{font-size:clamp(2rem,6vw,3rem);margin:0;font-weight:700}
+
+/* make the hero subtitle dark blue and bold for better contrast */
+.hero__overlay .hero-subtitle {
+  color: var(--text);
+  font-weight: 700;
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.hero-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.06),rgba(0,0,0,0.06));pointer-events:none}
+
+/* project cards extend card component but override text color if needed */
+.project-card.card{padding:1.25rem}
+.project-card h3{margin-bottom:.5rem}
+.project-card p{font-size:.95rem}
+
+/* Layout helpers */
+.container {
+  width: min(100% - 3rem, var(--container));
+  margin-inline: auto;
+}
+
+.main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+/* Typography */
+h1, h2, h3 {
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-2);
+}
+
+h1 {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+p {
+  margin: 0 0 var(--space-3);
+  color: var(--muted);
+}
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+/* Header / hero */
+header.site-header {
+  padding: clamp(3rem, 7vw, 5rem) 0;
+}
+
+.hero {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.hero .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  width: fit-content;
+}
+
+.hero .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: var(--space-3);
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: 0 1px 0 rgba(17, 24, 39, 0.03);
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: rgba(79, 70, 229, 0.25);
+  color: var(--text);
+}
+
+.button.primary {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 1), rgba(20, 184, 166, 0.95));
+  color: white;
+  border: none;
+}
+
+.button.primary:hover {
+  box-shadow: var(--shadow);
+}
+
+/* Nav (optional) */
+nav.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(251, 251, 253, 0.7);
+  border-bottom: 1px solid var(--border);
+}
+
+nav.site-nav .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+}
+
+nav.site-nav .brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+nav.site-nav .links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+nav.site-nav .links a {
+  color: var(--muted);
+  font-weight: 600;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+}
+
+nav.site-nav .links a:hover {
+  color: var(--accent);
+  background: rgba(79, 70, 229, 0.08);
+}
+
+/* Sections */
+.section-title {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: var(--space-4);
+}
+
+.section-title p {
+  margin: 0;
+  max-width: 70ch;
+}
+
+/* Projects grid */
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid.projects {
+  grid-template-columns: repeat(12, 1fr);
+}
+
+/* Reset default list styles + layout for project lists so items appear as cards */
+.projects {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--gap);
+  margin-block: 1rem;
+  width: 100%;
+  max-width: none; /* wrapper controls width now */
+  justify-items: stretch;
+  align-items: start;
+}
+
+/* ensure li/project behavior remains full width inside columns */
+.projects li { list-style: none; width: 100%; }
+.project { width: 100%; }
+
+/* --- Align headings to first project column --- */
+.align-to-projects,
+.projects-wrap {
+  display: grid;
+  gap: var(--gap);
+  justify-content: center;
+  grid-template-columns: 1fr; /* mobile: single column */
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* Heading sits at column 1 (left aligned to first project) */
+.align-to-projects > h2,
+.projects-wrap > h2 {
+  grid-column: 1;
+  justify-self: start;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Ensure the projects list spans the full wrapper width */
+.projects-wrap > .projects {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+/* Responsive: have wrapper columns match project columns */
+@media (min-width: 720px) {
+  .align-to-projects,
+  .projects-wrap {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+  }
+
+  .projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 980px) {
+  .align-to-projects,
+  .projects-wrap {
+    grid-template-columns: repeat(3, 320px); /* defines 3 equal columns centered in the viewport */
+  }
+
+  /* project grid uses 1fr columns so each li fills one wrapper column */
+  .projects {
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center; /* keep centered within wrapper if needed */
+  }
+
+  /* make About paragraph span all three wrapper columns (aligns its right edge with project 3) */
+  .align-to-projects > .about-text {
+    grid-column: 1 / -1;
+    max-width: none;
+  margin-bottom: 1.35rem;
+  }
+}
+
+/* project */
+.project {
+  grid-column: span 12;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  background: var(--card);           /* make all projects sky-blue */
+  color: var(--card-text);           /* white text on sky-blue */
+  border: 1px solid var(--card-border);
+  min-height: 160px;                 /* visual consistency */
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
+}
+
+/* keep hover behavior but ensure contrast is acceptable */
+.project:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color: rgba(11, 37, 69, 0.12);
+}
+
+.project h3 {
+  margin-bottom: 1.35rem;
+}
+
+.project .meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+/* Contact */
+.contact-box {
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.contact-links a {
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 1px dashed rgba(79, 70, 229, 0.35);
+}
+
+.contact-links a:hover {
+  border-bottom-color: rgba(79, 70, 229, 0.9);
+}
+
+    .contact { text-align: center; }
+    .contact a { display: inline-block; margin-top: 1rem; font-weight: 500; }
+
+    /* center contact paragraph and constrain its width */
+    .contact p { text-align: center; margin: 0 auto; max-width: 40ch; }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid #e5e7eb;
+    }
+
+/* Footer */
+footer.site-footer {
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Focus + selection */
+:focus-visible {
+  outline: 3px solid rgba(79, 70, 229, 0.35);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+::selection {
+  background: rgba(79, 70, 229, 0.18);
+}
+
+/* Responsive tweaks */
+@media (min-width: 720px) {
+  .hero {
+    grid-template-columns: 1.3fr 0.7fr;
+    align-items: center;
+  }
+
+  .project {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 980px) {
+  .project {
+    grid-column: span 4;  /* three per row on wide screens */
+  }
+}
+
+/* Optional: dark mode (auto via OS setting) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1020;
+    --surface: #0f172a;
+    --surface-2: #111c36;
+    --text: #e5e7eb;
+    --muted: #a1a1aa;
+    --border: rgba(255, 255, 255, 0.10);
+    --accent-soft: rgba(99, 102, 241, 0.18);
+  }
+
+  body {
+    background:
+      radial-gradient(1200px 500px at 15% -10%, rgba(99, 102, 241, 0.22), transparent 55%),
+      radial-gradient(900px 420px at 85% 10%, rgba(20, 184, 166, 0.16), transparent 55%),
+      var(--bg);
+  }
+
+  nav.site-nav {
+    background: rgba(11, 16, 32, 0.6);
+  }
+
+  .button {
+    background: rgba(15, 23, 42, 0.75);
+  }
+
+  .project,
+  .card,
+  .contact-box {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+}
